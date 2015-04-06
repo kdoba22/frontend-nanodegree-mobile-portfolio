@@ -18,7 +18,7 @@ Ensuring a consistent frame rate of 60fps
 3.  moving the calculation of a big number ouside the loop (line 508/510) : var number=document.body.scrollTop / 1250;
 Resources: 1. http://www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/
            2. http://stackoverflow.com/questions/16987787/css3-translate-vs-translatex
-
+           3. fork grunt-pagespeed-ngrok-sample from github
 In addition to the above website I read many websites pertaining to NGROK and how to use github.IO in order to accomplplish the first part of the project.
 I did get github.io to work, but the problem I had with it was that I had to continuously post me code change to my github.io project in order to see my changes reflect on the website.
 
