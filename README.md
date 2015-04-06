@@ -14,8 +14,8 @@ Part 2: Optimize Frames per Second in pizza.html
 Ensuring a consistent frame rate of 60fps
 
 1.  reducing the number of pizzas created to 20 (line 532)
-using translate instead of basic left positioing (line 512): item[i].style.left = 'translateX(' + (100*phase) + 'px)';
-moving the calculation of a big number ouside the loop (line 508/510) : var number=document.body.scrollTop / 1250;
+2.  using translate instead of basic left positioing (line 512): item[i].style.left = 'translateX(' + (100*phase) + 'px)';
+3.  moving the calculation of a big number ouside the loop (line 508/510) : var number=document.body.scrollTop / 1250;
 Resources: 1. http://www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/
            2. http://stackoverflow.com/questions/16987787/css3-translate-vs-translatex
 
