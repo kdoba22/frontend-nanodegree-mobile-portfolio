@@ -502,14 +502,16 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  var items = document.querySelectorAll('.mover');
+ var items = document.querySelectorAll('.mover');
 // since the value reporesented by (document.body.scrollTop / 1250) is constant, we do not need to recalculate it everytime through the loop.
 // Pull this caclulation out of the loop to decrease speed of the loop
   var scrollNumber=document.body.scrollTop/1250;
   for (var i = 0; i < items.length; i++) {
+//    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
     var phase = Math.sin(scrollNumber + (i % 5));
 //    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
-    item[i].style.left = 'translateX(' + (100*phase) + 'px)';   
+    //use translateX to help with performance and change the x value from 100 to 500 to cover the entire menu with pizzas
+    items[i].style.transform = 'translateX(' + (500 * phase) + 'px)';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
@@ -526,10 +528,12 @@ function updatePositions() {
 window.addEventListener('scroll', updatePositions);
 
 // Generates the sliding pizzas when the page loads.
+// since we only see a few pizzas ata time, we don't need to load 200 or them.  Reducing this number  to 20
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 20; i++) {   
+//  for (var i = 0; i < 200; i++) {
+  for (var i = 0; i < 20; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
