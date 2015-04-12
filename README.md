@@ -35,8 +35,36 @@ Part 2: Optimize Frames per Second in pizza.html
 Ensuring a consistent frame rate of 60fps
 
 1.  reducing the number of pizzas created to 20 (line 537)
-2.  using translate instead of basic left positioing (line 514): item[i].style.left = 'translateX(' + (500*phase) + 'px)'; change the x value from 100 to 500 to cover the entire menu
-3.  moving the calculation of a big number ouside the loop (line 508/510) : var number=document.body.scrollTop / 1250;
+2.  using translate instead of basic left positioing (line 521): item[i].style.left = 'translateX(' + (100*phase) + 'px)'; 
+3.  var items = document.getElementsByClassName('mover'); // Cache items changed to use getElementsByClassName as suggested line 510
+4.  var len = items.length; // Cache length line 511
+5.  moving the calculation of a big number ouside the loop (line 515) : var number=document.body.scrollTop / 1250;
+6. made the following changes to the changePizzaSizes function
+	cached the length so that the CRP pathint called everytime through the loop to calulate the legth of the array (line 453)
+	using console.log I found that the values being calculated for DX and newwidth were the same no matter what vailue was in i.
+	I decided to calculate then one at start of function with the 0 value because the difference between subscripts was neglegable.
+	declared the new i variable outside the for loop on line 456
+	moved the var for dx and new width outside the for loop, lines 457, 458.
+
+
+function changePizzaSizes(size) {
+    var len = document.querySelectorAll(".randomPizzaContainer").length; // cache length
+// using console.log I found that the values being calculated for DX and newwidth were the same no matter what vailue was in i.
+// I decided to calculate then one at start of function with the 0 value because the difference between subscripts was neglegable.
+    var i = 0;
+    var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
+    var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
+
+    for (var i = 0; i < len; i++) {  
+      document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
+    }
+  }
+
+  changePizzaSizes(size);
+
+
+
+
 Resources: 1. http://www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/
            2. http://stackoverflow.com/questions/16987787/css3-translate-vs-translatex
            3. fork grunt-pagespeed-ngrok-sample from github

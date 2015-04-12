@@ -450,9 +450,14 @@ var resizePizzas = function(size) {
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
-    for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
-      var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
-      var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
+    var len = document.querySelectorAll(".randomPizzaContainer").length; // cache length
+// using console.log I found that the values being calculated for DX and newwidth were the same no matter what vailue was in i.
+// I decided to calculate then one at start of function with the 0 value because the difference between subscripts was neglegable.
+    var i = 0;
+    var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
+    var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
+
+    for (var i = 0; i < len; i++) {  
       document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
     }
   }
@@ -502,16 +507,18 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
- var items = document.querySelectorAll('.mover');
+  var items = document.getElementsByClassName('mover'); // Cache items
+  var len = items.length; // Cache length
+//  var items = document.querySelectorAll('.mover');
 // since the value reporesented by (document.body.scrollTop / 1250) is constant, we do not need to recalculate it everytime through the loop.
 // Pull this caclulation out of the loop to decrease speed of the loop
   var scrollNumber=document.body.scrollTop/1250;
-  for (var i = 0; i < items.length; i++) {
+  for (var i = 0; i < len; i++) {
 //    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
     var phase = Math.sin(scrollNumber + (i % 5));
 //    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
     //use translateX to help with performance and change the x value from 100 to 500 to cover the entire menu with pizzas
-    items[i].style.transform = 'translateX(' + (500 * phase) + 'px)';
+    items[i].style.transform = 'translateX(' + (100 * phase) + 'px)';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
