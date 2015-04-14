@@ -34,17 +34,18 @@ Part 2: Optimize Frames per Second in pizza.html
 
 Ensuring a consistent frame rate of 60fps
 
-1.  reducing the number of pizzas created to 20 (line 537)
-2.  using translate instead of basic left positioing (line 521): item[i].style.left = 'translateX(' + (100*phase) + 'px)'; 
-3.  var items = document.getElementsByClassName('mover'); // Cache items changed to use getElementsByClassName as suggested line 510
-4.  var len = items.length; // Cache length line 511
-5.  moving the calculation of a big number ouside the loop (line 515) : var number=document.body.scrollTop / 1250;
+1.  reducing the number of pizzas created to 20 (line 545)
+2.  using translate instead of basic left positioing (line 523): item[i].style.left = 'translateX(' + (100*phase) + 'px)'; 
+3.  var items = document.getElementsByClassName('mover'); // Cache items changed to use getElementsByClassName as suggested line 512
+4.  var len = items.length; // Cache length line 513
+5.  moving the calculation of a big number ouside the loop (line 517) : var number=document.body.scrollTop / 1250;
 6. made the following changes to the changePizzaSizes function
-	cached the length so that the CRP pathint called everytime through the loop to calulate the legth of the array (line 453)
+	cached the length so that the CRP pathint called everytime through the loop to calulate the legth of the array (line 455)
 	using console.log I found that the values being calculated for DX and newwidth were the same no matter what vailue was in i.
 	I decided to calculate then one at start of function with the 0 value because the difference between subscripts was neglegable.
-	declared the new i variable outside the for loop on line 456
+	declared the new i variable outside the for loop on line 458
 	moved the var for dx and new width outside the for loop, lines 457, 458.
+7.  Change to use getElementsByClassName to speed up resizePizz (line 463)
 
 
 function changePizzaSizes(size) {
