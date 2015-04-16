@@ -35,17 +35,18 @@ Part 2: Optimize Frames per Second in pizza.html
 Ensuring a consistent frame rate of 60fps
 
 1.  reducing the number of pizzas created to 20 (line 545)
-2.  using translate instead of basic left positioing (line 523): item[i].style.left = 'translateX(' + (100*phase) + 'px)'; 
-3.  var items = document.getElementsByClassName('mover'); // Cache items changed to use getElementsByClassName as suggested line 512
-4.  var len = items.length; // Cache length line 513
-5.  moving the calculation of a big number ouside the loop (line 517) : var number=document.body.scrollTop / 1250;
+2.  using translate instead of basic left positioing (line 531): item[i].style.left = 'translateX(' + (100*phase) + 'px)'; 
+3.  var items = document.getElementsByClassName('mover'); // Cache items changed to use getElementsByClassName as suggested line 518
+4.  var len = items.length; // Cache length line 519
+5.  moving the calculation of a big number ouside the loop (line 520) : var number=document.body.scrollTop / 1250;
 6. made the following changes to the changePizzaSizes function
 	cached the length so that the CRP pathint called everytime through the loop to calulate the legth of the array (line 455)
 	using console.log I found that the values being calculated for DX and newwidth were the same no matter what vailue was in i.
 	I decided to calculate then one at start of function with the 0 value because the difference between subscripts was neglegable.
 	declared the new i variable outside the for loop on line 458
 	moved the var for dx and new width outside the for loop, lines 457, 458.
-7.  Change to use getElementsByClassName to speed up resizePizz (line 463)
+7.  Change to use getElementsByClassName to speed up resizePizza (line 463)
+8.  Line 521 creta a phase Array to hold the SIN values so that I didn't have to calculate every tinme through the loop.
 
 
 function changePizzaSizes(size) {

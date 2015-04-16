@@ -505,22 +505,30 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
 // Moves the sliding background pizzas based on scroll position
+// function updatePositions() {
+//   frame++;
+//   window.performance.mark("mark_start_frame");
+
+
+
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
   var items = document.getElementsByClassName('mover'); // Cache items
   var len = items.length; // Cache length
-//  var items = document.querySelectorAll('.mover');
-// since the value reporesented by (document.body.scrollTop / 1250) is constant, we do not need to recalculate it everytime through the loop.
-// Pull this caclulation out of the loop to decrease speed of the loop
-  var scrollNumber=document.body.scrollTop/1250;
+  var scrollNumber=document.body.scrollTop/1250; // pull computation out of FOR loop to calculate only once
+  var phaseArray = new Array(5); // create Array for possible phase values rather than calculating it evertime through FOR loop
+  phaseArray[0] = (Math.sin(scrollNumber + (0)) * 100);
+  phaseArray[1] = (Math.sin(scrollNumber + (1)) * 100);
+  phaseArray[2] = (Math.sin(scrollNumber + (2)) * 100);
+  phaseArray[3] = (Math.sin(scrollNumber + (3)) * 100);
+  phaseArray[4] = (Math.sin(scrollNumber + (4)) * 100);
+
   for (var i = 0; i < len; i++) {
-//    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
-    var phase = Math.sin(scrollNumber + (i % 5));
-//    items[i].style.left = items[i].basicLeft + 100 * phase + 'px';
-    //use translateX to help with performance and change the x value from 100 to 500 to cover the entire menu with pizzas
-    items[i].style.transform = 'translateX(' + (100 * phase) + 'px)';
+//    var phase = Math.sin(scrollNumber + (i % 5));
+    var phase = phaseArray[i % 5];
+    items[i].style.transform = 'translateX(' + (phase) + 'px)';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
