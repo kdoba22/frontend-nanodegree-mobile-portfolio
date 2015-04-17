@@ -34,35 +34,23 @@ Part 2: Optimize Frames per Second in pizza.html
 
 Ensuring a consistent frame rate of 60fps
 
-1.  reducing the number of pizzas created to 20 (line 545)
-2.  using translate instead of basic left positioing (line 531): item[i].style.left = 'translateX(' + (100*phase) + 'px)'; 
-3.  var items = document.getElementsByClassName('mover'); // Cache items changed to use getElementsByClassName as suggested line 518
-4.  var len = items.length; // Cache length line 519
-5.  moving the calculation of a big number ouside the loop (line 520) : var number=document.body.scrollTop / 1250;
-6. made the following changes to the changePizzaSizes function
+1.  var items = document.getElementsByClassName('mover'); // Cache items changed to use getElementsByClassName as suggested line 512
+2.  var len = items.length; // Cache length line 513
+3.  moving the calculation of a big number ouside the loop (line 514) : var number=document.body.scrollTop / 1250;
+4. made the following changes to the changePizzaSizes function
 	cached the length so that the CRP pathint called everytime through the loop to calulate the legth of the array (line 455)
 	using console.log I found that the values being calculated for DX and newwidth were the same no matter what vailue was in i.
 	I decided to calculate then one at start of function with the 0 value because the difference between subscripts was neglegable.
 	declared the new i variable outside the for loop on line 458
 	moved the var for dx and new width outside the for loop, lines 457, 458.
-7.  Change to use getElementsByClassName to speed up resizePizza (line 463)
-8.  Line 521 creta a phase Array to hold the SIN values so that I didn't have to calculate every tinme through the loop.
+5.  Change to use getElementsByClassName to speed up resizePizza (line 459)
 
 
-function changePizzaSizes(size) {
-    var len = document.querySelectorAll(".randomPizzaContainer").length; // cache length
-// using console.log I found that the values being calculated for DX and newwidth were the same no matter what vailue was in i.
-// I decided to calculate then one at start of function with the 0 value because the difference between subscripts was neglegable.
-    var i = 0;
-    var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
-    var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
 
-    for (var i = 0; i < len; i++) {  
-      document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
-    }
-  }
+I had r4educed th enumber  of pizzas to 20, but was told to use all 200 of them.
+I could never get tranlateX to work properly.  My scrolling time was really reduced, but the pizzas only stayed toward the center of the screen, so I had to use the method provided in the original code.
 
-  changePizzaSizes(size);
+
 
 
 

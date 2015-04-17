@@ -1,16 +1,12 @@
 /*
 Welcome to the 60fps project! Your goal is to make Cam's Pizzeria website run
 jank-free at 60 frames per second.
-
 There are two major issues in this code that lead to sub-60fps performance. Can
 you spot and fix both?
-
-
 Built into the code, you'll find a few instances of the User Timing API
 (window.performance), which will be console.log()ing frame rate data into the
 browser console. To learn more about User Timing API, check out:
 http://www.html5rocks.com/en/tutorials/webperformance/usertiming/
-
 Creator:
 Cameron Pittman, Udacity Course Developer
 cameron *at* udacity *dot* com
@@ -509,8 +505,6 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 //   frame++;
 //   window.performance.mark("mark_start_frame");
 
-
-
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
@@ -518,12 +512,11 @@ function updatePositions() {
   var items = document.getElementsByClassName('mover'); // Cache items
   var len = items.length; // Cache length
   var scrollNumber=document.body.scrollTop/1250; // pull computation out of FOR loop to calculate only once
-  var phaseArray = new Array(5); // create Array for possible phase values rather than calculating it evertime through FOR loop
-  phaseArray[0] = (Math.sin(scrollNumber + (0)) * 100);
-  phaseArray[1] = (Math.sin(scrollNumber + (1)) * 100);
-  phaseArray[2] = (Math.sin(scrollNumber + (2)) * 100);
-  phaseArray[3] = (Math.sin(scrollNumber + (3)) * 100);
-  phaseArray[4] = (Math.sin(scrollNumber + (4)) * 100);
+ 
+  for (var i = 0; i < len; i++) {
+   var phase = Math.sin(scrollNumber + (i % 5));
+   items[i].style.left = items[i].basicLeft + 100*phase + 'px';
+  }
 
   for (var i = 0; i < len; i++) {
 //    var phase = Math.sin(scrollNumber + (i % 5));
@@ -549,8 +542,7 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-//  for (var i = 0; i < 200; i++) {
-  for (var i = 0; i < 20; i++) {
+  for (var i = 0; i < 200; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
